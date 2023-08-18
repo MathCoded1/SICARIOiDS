@@ -72,7 +72,7 @@ int main()
 	glfwMakeContextCurrent(window);
 	gladLoadGL(glfwGetProcAddress);
 
-	//set pixel viewport (0,0),(WINDOW_WIDTH,0),(WINDOW_HEIGHT,0),(WINDOW_WIDTH,WINDOW_HEIGHT)
+	//set pixel viewport (0,0),(WINDOW_WIDTH,0),(0,WINDOW_HEIGHT),(WINDOW_WIDTH,WINDOW_HEIGHT)
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	// Clear color creation and then swap buffer back to paint color.

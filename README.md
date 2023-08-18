@@ -1,5 +1,5 @@
 # sombrosa
-Game engine written in two languages. Rust, with a C++ renderer.
+Game engine. will be written with c++. possibly rust as well.
 
 
 # Timeline
