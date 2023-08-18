@@ -57,7 +57,6 @@ int main()
 	}
 
 	// set <window> to active Window
-
 	glfwMakeContextCurrent(window);
 	gladLoadGL();
 
