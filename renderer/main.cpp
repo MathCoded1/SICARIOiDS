@@ -1,9 +1,18 @@
+//  MATHCODED.com 
+//		est 2021
+// Sombrosa Renderer
+//		began on 8-18-2023
+// 
+// 
+//  Author: Jonathan P. Wolfe 
+//
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 
 int main()
-{	// OpenGL specs
+{	
+	// OpenGL specs
 	int OPENGL_VERSION_MAJOR=3;
 	int OPENGL_VERSION_MINOR=3;
 
@@ -29,9 +38,11 @@ int main()
 		
 	// Initialize GLFW
 	glfwInit();
+
 	// Set OpenGL version.
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_VERSION_MAJOR);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_VERSION_MINOR);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_VERSION_MINOR
+	);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	// Create <window> Window object.
 	// return -1 and exit if fails (need to fix later so that it throws an error. also handle error)
