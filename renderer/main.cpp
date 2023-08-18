@@ -59,6 +59,9 @@ int main()
 	// Make <window> to active.
 	glfwMakeContextCurrent(window);
 	gladLoadGL();
+
+	//set pixel viewport (0,0),(WINDOW_WIDTH,0),(WINDOW_HEIGHT,0),(WINDOW_WIDTH,WINDOW_HEIGHT)
+
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	// Clear color creation and then swap buffer back to paint color.
@@ -66,15 +69,20 @@ int main()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glfwSwapBuffers(window);
 
-	// Keep Window open and polling.
+	// Keep Window open, polling.
+	// poll should know when to Exit, redraw, resize, etc.
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
 	}
 
-	// Terminate GLFW before closing
-    glfwTerminate();
 
-	//(EXIT should be used and called and wrapped around terminate)
+	
+	//Somehow exit here.
+
+	// Terminate GLFW before closing
+	glfwTerminate();
+
+	//return from Main()
 	return 1;
 };
