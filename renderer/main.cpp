@@ -5,6 +5,7 @@
 // 
 // 
 //  Author: Jonathan P. Wolfe 
+//          
 //
 
 
@@ -12,12 +13,20 @@
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 
-
+// Opens a GFLW Window until terminated.  
+//	defaults used:
+// OpenGL Version: 4.6
+// Name:           Sombrosa
+// Resolution:     800x800
+// Clear:		   r:0.07, g:0.13, b:0.17, a:1.00
+// 
+//
+//
 int main()
 {	
 	// OpenGL specs
-	int OPENGL_VERSION_MAJOR=3;
-	int OPENGL_VERSION_MINOR=3;
+	int OPENGL_VERSION_MAJOR = 4;
+	int OPENGL_VERSION_MINOR = 6;
 
 	// Variables
 	const char* WINDOW_NAME;
