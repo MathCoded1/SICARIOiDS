@@ -44,6 +44,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_VERSION_MINOR
 	);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 	// Create <window> Window object.
 	// return -1 and exit if fails (need to fix later so that it throws an error. also handle error)
 	//
