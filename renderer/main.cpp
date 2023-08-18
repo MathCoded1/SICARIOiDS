@@ -62,7 +62,6 @@ int main()
 	gladLoadGL();
 
 	//set pixel viewport (0,0),(WINDOW_WIDTH,0),(WINDOW_HEIGHT,0),(WINDOW_WIDTH,WINDOW_HEIGHT)
-
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	// Clear color creation and then swap buffer back to paint color.
