@@ -10,7 +10,7 @@
 
 
 #include<iostream>
-#include<glad/glad.h>
+#include<glad/gl.h>
 #include<GLFW/glfw3.h>
 
 // Opens a GFLW Window until terminated.  
@@ -70,7 +70,7 @@ int main()
 
 	// set <window> to active Window
 	glfwMakeContextCurrent(window);
-	gladLoadGL();
+	gladLoadGL(glfwGetProcAddress);
 
 	//set pixel viewport (0,0),(WINDOW_WIDTH,0),(WINDOW_HEIGHT,0),(WINDOW_WIDTH,WINDOW_HEIGHT)
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
