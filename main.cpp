@@ -10,8 +10,8 @@
 
 
 #include<iostream>
-#include<glad/gl.h>
-#include<GLFW/glfw3.h>
+#include "./Libraries/include/glad/gl.h"
+#include "./Libraries/include/GLFW/glfw3.h"
 
 // Opens a GFLW Window until terminated.  
 //	defaults used:
@@ -58,11 +58,15 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Create <window> Window object.
+	// terminal output of if window is created.  if not, terminates and
 	// return -1 and exit if fails (need to fix later so that it throws an error. also handle error)
 	//
 	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME, NULL, NULL);
-	if (window == NULL)
+	if (!window == NULL)
 	{
+		std::cout << "Created GLFW window" << std::endl;
+	}
+	else {
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
