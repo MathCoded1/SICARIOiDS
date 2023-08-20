@@ -43,8 +43,8 @@ const char* fragmentShaderSource = "#version 330 core\n"
 int main()
 {	
 	// OpenGL specs
-	int OPENGL_VERSION_MAJOR = 3;
-	int OPENGL_VERSION_MINOR = 3;
+	int OPENGL_VERSION_MAJOR = 4;
+	int OPENGL_VERSION_MINOR = 6;
 
 	// Variables
 	const char* WINDOW_NAME;
