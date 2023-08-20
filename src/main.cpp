@@ -13,23 +13,12 @@
 #include "../Libraries/include/glad/gl.h"
 #include "../Libraries/include/GLFW/glfw3.h"
 
-//Vertex Shader.
-const char* vertexShaderSource = "#version 330 core\n"
+#include"./Headers/shaderClass.h"
+#include"./Headers/VAO.h"
+#include"./Headers/VBO.h"
+#include"./Headers/EBO.h"
 
-"layout (location = 0) in vec3 iPos;\n"
-
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(iPos.x, iPos.y, iPos.z, 1.0);\n"
-"}\0";
-
-//Fragment Shader
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"  FragColor = vec4( 0.8f, 0.8f ,0.02f, 1.0f);\n"
-"}\n\0";
+;
 
 // Opens a GFLW Window until terminated.  
 //	defaults used:
@@ -111,78 +100,63 @@ int main()
 	//set pixel viewport (0,0),(WINDOW_WIDTH,0),(0,WINDOW_HEIGHT),(WINDOW_WIDTH,WINDOW_HEIGHT)
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	//Compile Vertex Shader
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-
-	//Compile Fragment Shader
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-
-	//Load Shaders into Shader Program
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	//Delete Shaders
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
-	//Create Vertex Bindings.
-	GLuint VAO, VBO, EBO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-	
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
 	
 
-	glBindVertexArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	// Generates Shader object using shaders defualt.vert and default.frag
+	Shader shaderProgram("../Shaders/default.vert", "../Shaders/default.frag");
 
 
-	// Clear color creation and then swap buffer back to paint color.
-	glClearColor(CLEAR_RED, CLEAR_GREEN, CLEAR_BLUE, CLEAR_ALPHA);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glfwSwapBuffers(window);
-	glUseProgram(0);
-	// Keep Window open, polling.
-	// poll should know when to Exit, redraw, resize, etc.
+
+	// Generates Vertex Array Object and binds it
+	VAO VAO1;
+	VAO1.Bind();
+
+	// Generates Vertex Buffer Object and links it to vertices
+	VBO VBO1(vertices, sizeof(vertices));
+	// Generates Element Buffer Object and links it to indices
+	EBO EBO1(indices, sizeof(indices));
+
+	// Links VBO to VAO
+	VAO1.LinkVBO(VBO1, 0);
+	// Unbind all to prevent accidentally modifying them
+	VAO1.Unbind();
+	VBO1.Unbind();
+	EBO1.Unbind();
+
+
+
+	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
+		// Specify the color of the background
 		glClearColor(CLEAR_RED, CLEAR_GREEN, CLEAR_BLUE, CLEAR_ALPHA);
+		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
-		//Draw
-
-		glUseProgram(shaderProgram);
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6,GL_UNSIGNED_INT, 0);
-		//Flip to Back Buffer.
+		// Tell OpenGL which Shader Program we want to use
+		shaderProgram.Activate();
+		// Bind the VAO so OpenGL knows to use it
+		VAO1.Bind();
+		// Draw primitives, number of indices, datatype of indices, index of indices
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
+		// Take care of all GLFW events
 		glfwPollEvents();
 	}
 
-	//Delete Vertex arrays and Buffers.
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
-	glDeleteProgram(shaderProgram);
+
+
+	// Delete all the objects we've created
+	VAO1.Delete();
+	VBO1.Delete();
+	EBO1.Delete();
+	shaderProgram.Delete();
 
 	//Somehow exit here.
 
-	// Terminate GLFW before closing
+	// Delete window before ending the program
+	glfwDestroyWindow(window);
+	// Terminate GLFW before ending the program
 	glfwTerminate();
-
-	//return from Main()
 	return 0;
 };
