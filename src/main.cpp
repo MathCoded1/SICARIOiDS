@@ -41,7 +41,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
 //
 //
 int main()
-{	
+{
 	// OpenGL specs
 	int OPENGL_VERSION_MAJOR = 4;
 	int OPENGL_VERSION_MINOR = 6;
@@ -64,8 +64,8 @@ int main()
 	CLEAR_GREEN = 0.13f;
 	CLEAR_BLUE = 0.17f;
 	CLEAR_ALPHA = 1.0f;
-	
-		
+
+
 	// Initialize GLFW
 	glfwInit();
 
@@ -78,10 +78,15 @@ int main()
 	//Create Vertices.
 	GLfloat vertices[] =
 	{
-		-0.5f,-0.5f *float(sqrt(3))/3, 0.0f,
-		0.5f,-0.5f*float(sqrt(3))/3, 0.0f,
-		0.0f,0.5f*float(sqrt(3))*2/3, 0.0f,
-		
+		-0.4f,-0.5f * float(sqrt(3)) / 3, 0.0f,
+		0.4f,-0.5f * float(sqrt(3)) / 3, 0.0f,
+		0.0f,0.5f * float(sqrt(3)) * 2 / 3, 0.0f,
+		0.0f, 0.1f * float(sqrt(3))*2 / 3, 0.0f,
+	};
+
+	GLuint indices[] = {
+		0,2,3,
+		1,2,3
 	};
 
 	// Create <window> Window object.
@@ -110,12 +115,12 @@ int main()
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
-	
+
 	//Compile Fragment Shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
-	
+
 	//Load Shaders into Shader Program
 	GLuint shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
@@ -125,19 +130,25 @@ int main()
 	//Delete Shaders
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
-	
+
 	//Create Vertex Bindings.
-	GLuint VAO, VBO;
+	GLuint VAO, VBO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+	
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
+	
 
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
 	// Clear color creation and then swap buffer back to paint color.
@@ -155,7 +166,7 @@ int main()
 
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 6,GL_UNSIGNED_INT, 0);
 		//Flip to Back Buffer.
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -164,8 +175,9 @@ int main()
 	//Delete Vertex arrays and Buffers.
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
 	glDeleteProgram(shaderProgram);
-	
+
 	//Somehow exit here.
 
 	// Terminate GLFW before closing
@@ -174,4 +186,3 @@ int main()
 	//return from Main()
 	return 0;
 };
-
