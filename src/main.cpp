@@ -17,6 +17,7 @@
 #include"./Headers/VBO.h"
 #include"./Headers/EBO.h"
 #include"./Headers/ship.h"
+#include"./Headers/asteroid.h"
 
 // Opens a GFLW Window until terminated.  
 //	defaults used:
@@ -63,26 +64,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 
-	const int numCircleVertices = 8;
-	float circleRadius = 0.1f;
-	float centerX = 0.8f; // Custom x-coordinate for the center of the circle
-	float centerY = 0.8f; // Custom y-coordinate for the center of the circle
 
-	// Calculate the circle vertices around the custom center position
-	GLfloat circleVertices[numCircleVertices * 5];
-	for (int i = 0; i < numCircleVertices; ++i) {
-		float angle = 2 * 3.14f * static_cast<float>(i) / numCircleVertices;
-		circleVertices[i * 5] = centerX + circleRadius * cos(angle);  // x-coordinate
-		circleVertices[i * 5 + 1] = centerY + circleRadius * sin(angle);  // y-coordinate
-		circleVertices[i * 5 + 2] = 1.0f; // Red color
-		circleVertices[i * 5 + 3] = 0.0f; // Green color
-		circleVertices[i * 5 + 4] = 0.0f; // Blue color
-	}
-	// Define indices for the circle vertices
-	GLuint circleIndices[numCircleVertices];
-	for (int i = 0; i < numCircleVertices; ++i) {
-		circleIndices[i] = i;
-	}
 
 	// Create <window> Window object.
 	// terminal output of if window is created.  if not, terminates and
@@ -130,14 +112,14 @@ int main()
 
 	// Gets ID of uniform called "scale"
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
-	
+	Asteroid asteroid;
 	VAO VAO2;
 	VAO2.Bind();
 
 	Shader AProgram("../Shaders/circle.vert", "../Shaders/circle.frag");
 
 	// Generates Vertex Buffer Object and links it to vertices
-	VBO VBO2(circleVertices, sizeof(circleVertices));
+	VBO VBO2(asteroid.vertices, sizeof(asteroid.vertices));
 	// Generates Element Buffer Object and links it to indices
 	;
 
@@ -164,11 +146,12 @@ int main()
 		VAO1.Bind();
 		// Draw primitives, number of indices, datatype of indices, index of indices
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		shaderProgram.Deactivate();
 		AProgram.Activate();
 		glUniform1f(uniID2, 0.5f);
 		VAO2.Bind();
-		glDrawElements(GL_TRIANGLE_FAN, numCircleVertices, GL_UNSIGNED_INT, circleIndices);
-
+		glDrawElements(GL_TRIANGLE_FAN, 8, GL_UNSIGNED_INT, asteroid.indices);
+		AProgram.Deactivate();
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
