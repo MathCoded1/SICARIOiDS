@@ -1,5 +1,5 @@
-# sombrosa
-Game engine. will be written with c++. possibly rust as well.
+# SICARIOiDS
+A shooter game.
 
 
 # Timeline
