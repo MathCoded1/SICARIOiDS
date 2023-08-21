@@ -11,7 +11,6 @@
 #include<iostream>
 #include "../Libraries/include/glad/gl.h"
 #include "../Libraries/include/GLFW/glfw3.h"
-
 #include"./Headers/shaderClass.h"
 #include"./Headers/VAO.h"
 #include"./Headers/VBO.h"
@@ -48,9 +47,9 @@ int main()
 	WINDOW_NAME = "SICARIOiDS";
 	WINDOW_WIDTH = 800;
 	WINDOW_HEIGHT = 800;
-	CLEAR_RED = 0.07f;
-	CLEAR_GREEN = 0.13f;
-	CLEAR_BLUE = 0.17f;
+	CLEAR_RED = 0.00f;
+	CLEAR_GREEN = 0.00f;
+	CLEAR_BLUE = 0.00f;
 	CLEAR_ALPHA = 1.0f;
 
 
