@@ -6,7 +6,7 @@
 
 class Asteroid {
 public:
-	Asteroid();
+	Asteroid(float x, float y, float radius);
 	const int numCircleVertices = 8;
 	float circleRadius;
 

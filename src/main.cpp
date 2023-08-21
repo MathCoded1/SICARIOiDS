@@ -45,7 +45,7 @@ int main()
 
 	// Initializoing variabled to defaults.
 	// (need to make these accessible and modifiable, etc)
-	WINDOW_NAME = "Sombrosa";
+	WINDOW_NAME = "SICARIOiDS";
 	WINDOW_WIDTH = 800;
 	WINDOW_HEIGHT = 800;
 	CLEAR_RED = 0.07f;
@@ -112,7 +112,7 @@ int main()
 
 	// Gets ID of uniform called "scale"
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
-	Asteroid asteroid;
+	Asteroid asteroid(0.75f,0.75f,0.15);
 	VAO VAO2;
 	VAO2.Bind();
 

@@ -30,13 +30,11 @@ void Ship::getVertices(int x, int y, double theta, double size) {
     vertices[14] = 0.0f;
     vertices[15] = 0.2f;
     vertices[16] = 0.8f;
-    vertices[217] = 0.7f; ;
+    vertices[17] = 0.7f;
     vertices[18] =x+(0.0f);
     vertices[19] = y+(0.1f * 1.5 * 2 / 3);
     vertices[20] = 0.0f;
     vertices[21] = 0.4f;
     vertices[22] = 0.5f;
     vertices[23] = 0.2f;
-  
-  
 }
