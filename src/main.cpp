@@ -16,6 +16,7 @@
 #include"./Headers/VAO.h"
 #include"./Headers/VBO.h"
 #include"./Headers/EBO.h"
+#include"./Headers/ship.h"
 
 // Opens a GFLW Window until terminated.  
 //	defaults used:
@@ -61,19 +62,7 @@ int main()
 	);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	//Create Vertices.
-	GLfloat vertices[] =
-	{
-		-0.4f,-0.5f * float(sqrt(3)) / 3, 0.0f,       1.0f, 0.3f, 0.4f,
-		0.4f,-0.5f * float(sqrt(3)) / 3, 0.0f,        0.7f, 0.2f, 0.2f,
-		0.0f,0.5f * float(sqrt(3)) * 2 / 3, 0.0f,     0.2f, 0.8f, 0.7f,
-		0.0f, 0.1f * float(sqrt(3))*2 / 3, 0.0f,      0.4f, 0.5f, 0.2f
-	};
 
-	GLuint indices[] = {
-		0,2,3,
-		1,2,3
-	};
 	const int numCircleVertices = 8;
 	float circleRadius = 0.1f;
 	float centerX = 0.8f; // Custom x-coordinate for the center of the circle
@@ -121,16 +110,15 @@ int main()
 
 	// Generates Shader object using shaders defualt.vert and default.frag
 	Shader shaderProgram("../Shaders/default.vert", "../Shaders/default.frag");
-
-
+	Ship ship;
 	// Generates Vertex Array Object and binds it
 	VAO VAO1;
 	VAO1.Bind();
 
 	// Generates Vertex Buffer Object and links it to vertices
-	VBO VBO1(vertices, sizeof(vertices));
+	VBO VBO1(ship.vertices, sizeof(ship.vertices));
 	// Generates Element Buffer Object and links it to indices
-	EBO EBO1(indices, sizeof(indices));
+	EBO EBO1(ship.indices, sizeof(ship.indices));
 
 	// Links VBO attributes such as coordinates and colors to VAO
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
