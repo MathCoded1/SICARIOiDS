@@ -15,6 +15,7 @@ public:
 	GLfloat vertices[40];
 	GLuint indices[8];
 	void getVertices(float x, float y, float radius);
+	void setColor(float r, float g, float b);
 };
 
 #endif
