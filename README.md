@@ -1,5 +1,5 @@
 # SICARIOiDS
-A shooter game.
+An UNFINISHED shooter game.
 
 
 # Timeline
