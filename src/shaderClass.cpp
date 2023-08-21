@@ -54,3 +54,8 @@ void Shader::Delete()
 {
 	glDeleteProgram(ID);
 }
+
+void Shader::Deactivate()
+{
+	glUseProgram(0);
+}

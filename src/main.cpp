@@ -74,6 +74,26 @@ int main()
 		0,2,3,
 		1,2,3
 	};
+	const int numCircleVertices = 8;
+	float circleRadius = 0.1f;
+	float centerX = 0.8f; // Custom x-coordinate for the center of the circle
+	float centerY = 0.8f; // Custom y-coordinate for the center of the circle
+
+	// Calculate the circle vertices around the custom center position
+	GLfloat circleVertices[numCircleVertices * 5];
+	for (int i = 0; i < numCircleVertices; ++i) {
+		float angle = 2 * 3.14f * static_cast<float>(i) / numCircleVertices;
+		circleVertices[i * 5] = centerX + circleRadius * cos(angle);  // x-coordinate
+		circleVertices[i * 5 + 1] = centerY + circleRadius * sin(angle);  // y-coordinate
+		circleVertices[i * 5 + 2] = 1.0f; // Red color
+		circleVertices[i * 5 + 3] = 0.0f; // Green color
+		circleVertices[i * 5 + 4] = 0.0f; // Blue color
+	}
+	// Define indices for the circle vertices
+	GLuint circleIndices[numCircleVertices];
+	for (int i = 0; i < numCircleVertices; ++i) {
+		circleIndices[i] = i;
+	}
 
 	// Create <window> Window object.
 	// terminal output of if window is created.  if not, terminates and
@@ -122,13 +142,30 @@ int main()
 
 	// Gets ID of uniform called "scale"
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
+	
+	VAO VAO2;
+	VAO2.Bind();
 
+	Shader AProgram("../Shaders/circle.vert", "../Shaders/circle.frag");
 
+	// Generates Vertex Buffer Object and links it to vertices
+	VBO VBO2(circleVertices, sizeof(circleVertices));
+	// Generates Element Buffer Object and links it to indices
+	;
+
+	// Links VBO attributes such as coordinates and colors to VAO
+	VAO2.LinkAttrib(VBO2, 0, 2, GL_FLOAT, 5 * sizeof(float), (void*)0);
+	VAO2.LinkAttrib(VBO2, 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+	// Unbind all to prevent accidentally modifying them
+	VAO2.Unbind();
+	VBO2.Unbind();
+	;
+	GLuint uniID2 = glGetUniformLocation(AProgram.ID, "scale");
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(CLEAR_RED, CLEAR_GREEN, CLEAR_BLUE, CLEAR_ALPHA);
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
@@ -139,6 +176,11 @@ int main()
 		VAO1.Bind();
 		// Draw primitives, number of indices, datatype of indices, index of indices
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		AProgram.Activate();
+		glUniform1f(uniID2, 0.5f);
+		VAO2.Bind();
+		glDrawElements(GL_TRIANGLE_FAN, numCircleVertices, GL_UNSIGNED_INT, circleIndices);
+
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
@@ -151,7 +193,11 @@ int main()
 	VAO1.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
+	VAO2.Delete();
+	VBO2.Delete();
+
 	shaderProgram.Delete();
+	AProgram.Delete();
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
 	// Terminate GLFW before ending the program
