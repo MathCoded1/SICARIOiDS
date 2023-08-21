@@ -90,7 +90,7 @@ int main()
 	
 
 	// Generates Shader object using shaders defualt.vert and default.frag
-	Shader shaderProgram("../Shaders/default.vert", "../Shaders/default.frag");
+	Shader shaderProgram("../Shaders/ship.vert", "../Shaders/ship.frag");
 	Ship ship;
 	// Generates Vertex Array Object and binds it
 	VAO VAO1;
@@ -115,7 +115,7 @@ int main()
 	VAO VAO2;
 	VAO2.Bind();
 
-	Shader AProgram("../Shaders/circle.vert", "../Shaders/circle.frag");
+	Shader AProgram("../Shaders/asteroid.vert", "../Shaders/asteroid.frag");
 
 	// Generates Vertex Buffer Object and links it to vertices
 	VBO VBO2(asteroid.vertices, sizeof(asteroid.vertices));
