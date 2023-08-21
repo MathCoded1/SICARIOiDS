@@ -9,32 +9,42 @@ Ship::Ship() {
     indices[3] = 1;
     indices[4] = 2;
     indices[5] = 3;
-
+    this->setColor(0.5f, 0.7f, 0.9f);
 }
 
-void Ship::getVertices(int x, int y, double theta, double size) {
-    vertices[0] = x+( - 0.4f);
-    vertices[1] = y+( - 0.5f * 1.5 / 3);
-    vertices[2] = 0.0f;
-    vertices[3] = 1.0f;
-    vertices[4] = 0.3f;
-    vertices[5] = 0.4f;
-    vertices[6] = x + (0.4f);
-    vertices[7] = y + (-0.5f * 1.5 / 3);
-    vertices[8] = 0.0f;
-    vertices[9] = 0.7f;
-    vertices[10] = 0.2f;
-    vertices[11] = 0.2f;
-    vertices[12] = x+(0.0f);
-    vertices[13] = y+(0.5f * 1.5 * 2 / 3);
-    vertices[14] = 0.0f;
-    vertices[15] = 0.2f;
-    vertices[16] = 0.8f;
-    vertices[17] = 0.7f;
-    vertices[18] =x+(0.0f);
-    vertices[19] = y+(0.1f * 1.5 * 2 / 3);
-    vertices[20] = 0.0f;
-    vertices[21] = 0.4f;
-    vertices[22] = 0.5f;
-    vertices[23] = 0.2f;
+void Ship::getVertices(float x, float y, float theta, float size) {
+    vertices[0] = (GLfloat) x+( - 0.4f);
+    vertices[1] = (GLfloat) y+( - 0.5f * 1.5 / 3);
+    vertices[2] = (GLfloat) 0.0f;
+    
+    vertices[6] = (GLfloat) x + (0.4f);
+    vertices[7] = (GLfloat) y + (-0.5f * 1.5 / 3);
+    vertices[8] = (GLfloat) 0.0f;
+   
+    vertices[12] = (GLfloat) x+(0.0f);
+    vertices[13] = (GLfloat) y+(0.5f * 1.5 * 2 / 3);
+    vertices[14] = (GLfloat) 0.0f;
+   
+    vertices[18] = (GLfloat) x+(0.0f);
+    vertices[19] = (GLfloat) y+(0.1f * 1.5 * 2 / 3);
+    vertices[20] = (GLfloat) 0.0f;
+   
+}
+
+void Ship::setColor(float r, float g, float b) {
+    vertices[3] = (GLfloat)r;
+    vertices[4] = (GLfloat)g;
+    vertices[5] = (GLfloat)b;
+
+    vertices[9] = (GLfloat)r;
+    vertices[10] = (GLfloat)g;
+    vertices[11] = (GLfloat)b;
+
+    vertices[15] = (GLfloat)r;
+    vertices[16] = (GLfloat)g;
+    vertices[17] = (GLfloat)b;
+
+    vertices[21] = (GLfloat)r;
+    vertices[22] = (GLfloat)g;
+    vertices[23] = (GLfloat)b;
 }

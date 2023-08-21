@@ -10,7 +10,8 @@ public:
     GLfloat vertices[24];
     GLuint indices[6];
 
-    void getVertices(int x, int y, double theta, double size);
+    void getVertices(float x, float y, float theta, float size);
+    void setColor(float r, float g, float b);
 };
 
 #endif
