@@ -1,7 +1,7 @@
 #ifndef ASTEROID_CLASS_H
 #define ASTEROID_CLASS_H
 
-#include"gl.h"
+#include"../../Libraries/include/glad/gl.h"
 #include "rgb.h"
 
 class Asteroid {
