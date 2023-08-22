@@ -1,6 +1,6 @@
-#include "Headers/gameEngine.h"
-#include "Headers/asteroid.h"
-#include "Headers/ship.h"
+#include "./Headers/gameEngine.h"
+#include "./Headers/asteroid.h"
+#include "./Headers/ship.h"
 
 
 
