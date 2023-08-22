@@ -2,7 +2,8 @@
 #include<cmath>
 Asteroid::Asteroid(float x, float y, float radius){
 this->getVertices(x, y, radius);
-this->setColor(1.0f, 0.0f, 0.07f);
+color.set(1.0f, 0.0f, 0.07f);
+this->setColor();
 }
 
 void Asteroid::getVertices(float x, float y, float radius) {
@@ -23,10 +24,10 @@ void Asteroid::getVertices(float x, float y, float radius) {
 	}
 }
 
-void Asteroid::setColor(float r, float g, float b) {
+void Asteroid::setColor() {
 	for (int i = 0; i < 8; ++i) {
-		vertices[i * 5 + 2] = r; // Red color
-		vertices[i * 5 + 3] = g; // Green color
-		vertices[i * 5 + 4] = b; // Blue color
+		vertices[i * 5 + 2] = color.red; // Red color
+		vertices[i * 5 + 3] = color.green; // Green color
+		vertices[i * 5 + 4] = color.blue; // Blue color
 	}
 }

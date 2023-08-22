@@ -2,7 +2,7 @@
 #define ASTEROID_CLASS_H
 
 #include"gl.h"
-
+#include "rgb.h"
 
 class Asteroid {
 public:
@@ -12,10 +12,13 @@ public:
 
 	float centerX;
 	float centerY;
-	GLfloat vertices[40];
-	GLuint indices[8];
+	Rgb color;
+	static const int ASTEROID_VERTICES = 40;
+	static const int ASTEROID_INDICES = 8;
+	GLfloat vertices[ASTEROID_VERTICES];
+	GLuint indices[ASTEROID_INDICES];
 	void getVertices(float x, float y, float radius);
-	void setColor(float r, float g, float b);
+	void setColor();
 };
 
 #endif

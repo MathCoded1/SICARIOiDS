@@ -49,10 +49,10 @@ void GameEngine::initializeGraphics() {
 
 
 
-	Shader shaderProgram("../Shaders/ship.vert", "../Shaders/ship.frag");
-	Shader AProgram("../Shaders/asteroid.vert", "../Shaders/asteroid.frag");
-	shaders.push_back(shaderProgram);
-	shaders.push_back(AProgram);
+	Shader shipShader("../Shaders/ship.vert", "../Shaders/ship.frag");
+	Shader asteroidShader("../Shaders/asteroid.vert", "../Shaders/asteroid.frag");
+	shaders.push_back(shipShader);
+	shaders.push_back(asteroidShader);
 	// Generates Vertex Array Object and binds it
 }
 	void GameEngine::render() {
@@ -127,18 +127,17 @@ void GameEngine::run() {
 		glfwPollEvents();
 
 		// Delete all the objects we've created
-		VAOs[0].Delete();
-		VBOs[0].Delete();
-		EBOs[0].Delete();
-		VAOs[1].Delete();
-		VBOs[1].Delete();
+		for (VAO vao : VAOs)
+			vao.Delete();
+		for (VBO vbo : VBOs)
+			vbo.Delete();
+		for (EBO ebo : EBOs)
+			ebo.Delete();
 	}
 }
 void GameEngine::close() {
-
-
-	shaders[0].Delete();
-	shaders[1].Delete();
+	for (Shader shader : shaders)
+		shader.Delete();
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
 	// Terminate GLFW before ending the program

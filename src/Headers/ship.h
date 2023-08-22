@@ -2,6 +2,7 @@
 #define SHIP_CLASS_H
 
 #include "gl.h"
+#include "rgb.h"
 
 class Ship {
 public:
@@ -11,6 +12,7 @@ public:
     float theta;
     float size;
     int health;
+    Rgb color;
     GLfloat vertices[20];
     GLuint indices[6] =
     {
@@ -19,7 +21,7 @@ public:
 };
 
     void getVertices();
-    void setColor(float r, float g, float b);
+    void setColor();
 };
 
 #endif
