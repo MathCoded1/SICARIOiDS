@@ -1,8 +1,8 @@
 #ifndef GAME_ENGINE_CLASS_H
 #define GAME_ENGINE_CLASS_H
 
-#include "../Libraries/include/glad/gl.h"
-#include"../Libraries/include/GLFW/glfw3.h"
+#include "../../Libraries/include/glad/gl.h"
+#include"../../Libraries/include/GLFW/glfw3.h"
 #include "shaderClass.h"
 #include "VAO.h"
 #include"EBO.h"
