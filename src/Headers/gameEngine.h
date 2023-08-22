@@ -29,14 +29,14 @@ public:
 
 	// Variables
 	const char* WINDOW_NAME = "SICARIOiDS";
-	int WINDOW_WIDTH =1024;
-	int WINDOW_HEIGHT =768;
+	int WINDOW_WIDTH =1200;
+	int WINDOW_HEIGHT =880;
 	float CLEAR_RED = 0.0f;
 	float CLEAR_GREEN = 0.0f;
 	float CLEAR_BLUE = 0.0f;
 	float CLEAR_ALPHA = 1.0f;
 	GLFWwindow *window;
-   std::vector<VAO> VAOs;
+	std::vector<VAO> VAOs;
     std::vector<VBO> VBOs;
     std::vector<EBO> EBOs;
     GLuint uniID;
