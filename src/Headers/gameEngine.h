@@ -10,7 +10,7 @@
 #include "ship.h"
 #include "asteroid.h"
 #include "input.h"
-
+#include "rendererItems.h"
 
 class GameEngine
 {
@@ -36,9 +36,7 @@ public:
 	float CLEAR_BLUE = 0.0f;
 	float CLEAR_ALPHA = 1.0f;
 	GLFWwindow *window;
-	std::vector<VAO> VAOs;
-    std::vector<VBO> VBOs;
-    std::vector<EBO> EBOs;
+	RendererItems rendererItems;
     GLuint uniID;
     GLuint uniID2;
 	std::vector<Shader> shaders;

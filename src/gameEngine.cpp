@@ -51,50 +51,50 @@ void GameEngine::initializeGraphics() {
 
 	Shader shipShader("../Shaders/ship.vert", "../Shaders/ship.frag");
 	Shader asteroidShader("../Shaders/asteroid.vert", "../Shaders/asteroid.frag");
-	shaders.push_back(shipShader);
-	shaders.push_back(asteroidShader);
+	rendererItems.shaders.push_back(shipShader);
+	rendererItems.shaders.push_back(asteroidShader);
 	// Generates Vertex Array Object and binds it
 }
 	void GameEngine::render() {
 
 	VAO VAO1;
-	VAOs.push_back(VAO1);
-	VAOs[0].Bind();
+	rendererItems.VAOs.push_back(VAO1);
+	rendererItems.VAOs[0].Bind();
 
 	// Generates Vertex Buffer Object and links it to vertices
 	VBO VBO1(ship.vertices, sizeof(ship.vertices));
 	// Generates Element Buffer Object and links it to indices
 	EBO EBO1(ship.indices, sizeof(ship.indices));
-	VBOs.push_back(VBO1);
-	EBOs.push_back(EBO1);
+	rendererItems.VBOs.push_back(VBO1);
+	rendererItems.EBOs.push_back(EBO1);
 	// Links VBO attributes such as coordinates and colors to VAO
-	VAOs[0].LinkAttrib(VBOs[0], 0, 3, GL_FLOAT, 5 * sizeof(float), (void*)0);
-	VAOs[0].LinkAttrib(VBOs[0], 1, 3, GL_FLOAT, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+	rendererItems.VAOs[0].LinkAttrib(rendererItems.VBOs[0], 0, 3, GL_FLOAT, 5 * sizeof(float), (void*)0);
+	rendererItems.VAOs[0].LinkAttrib(rendererItems.VBOs[0], 1, 3, GL_FLOAT, 5 * sizeof(float), (void*)(2 * sizeof(float)));
 	// Unbind all to prevent accidentally modifying them
-	VAOs[0].Unbind();
-	VBOs[0].Unbind();
-	EBOs[0].Unbind();
+	rendererItems.VAOs[0].Unbind();
+	rendererItems.VBOs[0].Unbind();
+	rendererItems.EBOs[0].Unbind();
 
 	// Gets ID of uniform called "scale"
-	GLuint uniID = glGetUniformLocation(shaders[0].ID, "scale");
+	GLuint uniID = glGetUniformLocation(rendererItems.shaders[0].ID, "scale");
 	VAO VAO2;
-	VAOs.push_back(VAO2);
+	rendererItems.VAOs.push_back(VAO2);
 	
-	VAOs[1].Bind();
+	rendererItems.VAOs[1].Bind();
 
 	// Generates Vertex Buffer Object and links it to vertices
 	VBO VBO2(asteroids[0].vertices, sizeof(asteroids[0].vertices));
 	// Generates Element Buffer Object and links it to indices
 	
-	VBOs.push_back(VBO2);
+	rendererItems.VBOs.push_back(VBO2);
 	// Links VBO attributes such as coordinates and colors to VAO
-	VAOs[1].LinkAttrib(VBOs[1], 0, 2, GL_FLOAT, 5 * sizeof(float), (void*)0);
-	VAOs[1].LinkAttrib(VBOs[1], 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+	rendererItems.VAOs[1].LinkAttrib(rendererItems.VBOs[1], 0, 2, GL_FLOAT, 5 * sizeof(float), (void*)0);
+	rendererItems.VAOs[1].LinkAttrib(rendererItems.VBOs[1], 1, 2, GL_FLOAT, 5 * sizeof(float), (void*)(2 * sizeof(float)));
 	// Unbind all to prevent accidentally modifying them
-	VAOs[1].Unbind();
-	VBOs[1].Unbind();
+	rendererItems.VAOs[1].Unbind();
+	rendererItems.VBOs[1].Unbind();
 	
-	GLuint uniID2 = glGetUniformLocation(shaders[1].ID, "scale");
+	GLuint uniID2 = glGetUniformLocation(rendererItems.shaders[1].ID, "scale");
 }
 void GameEngine::run() {
 	
@@ -108,35 +108,35 @@ void GameEngine::run() {
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
-		shaders[0].Activate();
+		rendererItems.shaders[0].Activate();
 		// Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
 		glUniform1f(uniID, 0.5f);
 		// Bind the VAO so OpenGL knows to use it
-		VAOs[0].Bind();
+		rendererItems.VAOs[0].Bind();
 		// Draw primitives, number of indices, datatype of indices, index of indices
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		shaders[0].Deactivate();
-		shaders[1].Activate();
+		rendererItems.shaders[0].Deactivate();
+		rendererItems.shaders[1].Activate();
 		glUniform1f(uniID2, 0.5f);
-		VAOs[1].Bind();
+		rendererItems.VAOs[1].Bind();
 		glDrawElements(GL_TRIANGLE_FAN, 8, GL_UNSIGNED_INT, asteroids[0].indices);
-		shaders[1].Deactivate();
+		rendererItems.shaders[1].Deactivate();
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
 		glfwPollEvents();
 
 		// Delete all the objects we've created
-		for (VAO vao : VAOs)
+		for (VAO vao : rendererItems.VAOs)
 			vao.Delete();
-		for (VBO vbo : VBOs)
+		for (VBO vbo : rendererItems.VBOs)
 			vbo.Delete();
-		for (EBO ebo : EBOs)
+		for (EBO ebo : rendererItems.EBOs)
 			ebo.Delete();
 	}
 }
 void GameEngine::close() {
-	for (Shader shader : shaders)
+	for (Shader shader : rendererItems.shaders)
 		shader.Delete();
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
