@@ -1,7 +1,7 @@
 #ifndef VAO_CLASS_H
 #define VAO_CLASS_H
 
-#include"gl.h"
+#include"../../Libraries/include/glad/gl.h"
 #include"VBO.h"
 
 class VAO

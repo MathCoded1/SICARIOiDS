@@ -1,7 +1,7 @@
 #ifndef EBO_CLASS_H
 #define EBO_CLASS_H
 
-#include "gl.h"
+#include "../../Libraries/include/glad/gl.h"
 class EBO
 {
 public:
