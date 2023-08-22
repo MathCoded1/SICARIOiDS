@@ -2,13 +2,15 @@
 #define GAME_ENGINE_CLASS_H
 
 #include "../glad/gl.h"
+#include"../GLFW/glfw3.h"
 #include "shaderClass.h"
 #include "VAO.h"
 #include"EBO.h"
 #include <vector>
 #include "ship.h"
 #include "asteroid.h"
-#include"../GLFW/glfw3.h"
+#include "input.h"
+
 
 class GameEngine
 {
@@ -18,7 +20,9 @@ public:
 	void initializeGraphics();
 	void close();
 	void run();
-
+	void getInput(GLFWwindow* window);
+	void processInput(Input input);
+	void render();
 	// OpenGL specs
 	int OPENGL_VERSION_MAJOR = 4;
 	int OPENGL_VERSION_MINOR = 6;

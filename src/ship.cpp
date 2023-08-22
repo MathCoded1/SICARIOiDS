@@ -2,7 +2,7 @@
 #include <cmath>
 
 Ship::Ship() {
-    this->getVertices(0, 0, 0, 1);
+    this->getVertices();
     indices[0] = 0;
     indices[1] = 2;
     indices[2] = 3;
@@ -12,21 +12,21 @@ Ship::Ship() {
     this->setColor(0.5f, 0.7f, 0.9f);
 }
 
-void Ship::getVertices(float x, float y, float theta, float size) {
-    vertices[0] = (GLfloat) x+( - 0.4f);
-    vertices[1] = (GLfloat) y+( - 0.5f * 1.5 / 3);
+void Ship::getVertices() {
+    vertices[0] = (GLfloat) centerX+( - 0.4f);
+    vertices[1] = (GLfloat) centerY+( - 0.5f * 1.5 / 3);
    
     
-    vertices[5] = (GLfloat) x + (0.4f);
-    vertices[6] = (GLfloat) y + (-0.5f * 1.5 / 3);
+    vertices[5] = (GLfloat) centerX + (0.4f);
+    vertices[6] = (GLfloat) centerY + (-0.5f * 1.5 / 3);
 
    
-    vertices[10] = (GLfloat) x+(0.0f);
-    vertices[11] = (GLfloat) y+(0.5f * 1.5 * 2 / 3);
+    vertices[10] = (GLfloat) centerX+(0.0f);
+    vertices[11] = (GLfloat) centerY+(0.5f * 1.5 * 2 / 3);
     
    
-    vertices[15] = (GLfloat) x+(0.0f);
-    vertices[16] = (GLfloat) y+(0.1f * 1.5 * 2 / 3);
+    vertices[15] = (GLfloat) centerX+(0.0f);
+    vertices[16] = (GLfloat) centerY+(0.1f * 1.5 * 2 / 3);
   
    
 }

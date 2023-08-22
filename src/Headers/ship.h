@@ -6,7 +6,11 @@
 class Ship {
 public:
     Ship();
-
+    float centerX = 0.0f;
+    float centerY = 0.0f;
+    float theta;
+    float size;
+    int health;
     GLfloat vertices[20];
     GLuint indices[6] =
     {
@@ -14,7 +18,7 @@ public:
         1, 2, 3
 };
 
-    void getVertices(float x, float y, float theta, float size);
+    void getVertices();
     void setColor(float r, float g, float b);
 };
 

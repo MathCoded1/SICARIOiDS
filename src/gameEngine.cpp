@@ -1,4 +1,4 @@
-#include "Headers/gameEngine.h"+
+#include "Headers/gameEngine.h"
 #include "Headers/asteroid.h"
 #include "Headers/ship.h"
 
@@ -35,8 +35,6 @@ GLFWwindow* w = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME, NULL,
 	gladLoadGL(glfwGetProcAddress);
 	//set pixel viewport (0,0),(WINDOW_WIDTH,0),(0,WINDOW_HEIGHT),(WINDOW_WIDTH,WINDOW_HEIGHT)
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-}
-void GameEngine::initializeGraphics() {
 
 	Asteroid a(0.75f, 0.75f, 0.1f);
 	asteroids.push_back(a);
@@ -46,6 +44,9 @@ void GameEngine::initializeGraphics() {
 	// Generates Shader object using shaders defualt.vert and default.frag
 	Ship s;
 	ship = s;
+}
+void GameEngine::initializeGraphics() {
+
 
 
 	Shader shaderProgram("../Shaders/ship.vert", "../Shaders/ship.frag");
@@ -53,6 +54,9 @@ void GameEngine::initializeGraphics() {
 	shaders.push_back(shaderProgram);
 	shaders.push_back(AProgram);
 	// Generates Vertex Array Object and binds it
+}
+	void GameEngine::render() {
+
 	VAO VAO1;
 	VAOs.push_back(VAO1);
 	VAOs[0].Bind();
@@ -97,6 +101,8 @@ void GameEngine::run() {
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
+		getInput(window);
+		render();
 		// Specify the color of the background
 		glClearColor(CLEAR_RED, CLEAR_GREEN, CLEAR_BLUE, CLEAR_ALPHA);
 		// Clean the back buffer and assign the new color to it
@@ -119,16 +125,17 @@ void GameEngine::run() {
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events
 		glfwPollEvents();
+
+		// Delete all the objects we've created
+		VAOs[0].Delete();
+		VBOs[0].Delete();
+		EBOs[0].Delete();
+		VAOs[1].Delete();
+		VBOs[1].Delete();
 	}
 }
 void GameEngine::close() {
 
-	// Delete all the objects we've created
-	VAOs[0].Delete();
-	VBOs[0].Delete();
-	EBOs[0].Delete();
-	VAOs[1].Delete();
-	VBOs[1].Delete();
 
 	shaders[0].Delete();
 	shaders[1].Delete();
@@ -136,4 +143,38 @@ void GameEngine::close() {
 	glfwDestroyWindow(window);
 	// Terminate GLFW before ending the program
 	glfwTerminate();
+}
+
+void GameEngine::getInput(GLFWwindow* window)
+{
+	Input input;
+	// Check if the Escape key is pressed
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		input.W = true;
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		input.A = true;
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		input.S = true;
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		input.D = true;
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL) == GLFW_PRESS)
+		input.ctrl = true;
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+		input.Space = true;
+
+	processInput(input);
+}
+void GameEngine::processInput(Input input) {
+	if (input.W == true)
+		ship.centerY += .001f;
+	if (input.S == true)
+		ship.centerY -= .001f;
+	if (input.A == true)
+		ship.centerX -= .001f;
+	if (input.D == true)
+		ship.centerX += .001f;
+	ship.getVertices();
+
 }
