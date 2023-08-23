@@ -4,7 +4,7 @@
 
 
 
-GameEngine::GameEngine() 
+GameEngine::GameEngine(bool FULL_SCREEN) 
 
 {
 	// Initialize GLFW

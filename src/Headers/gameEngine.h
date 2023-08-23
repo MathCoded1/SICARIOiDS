@@ -15,7 +15,7 @@
 class GameEngine
 {
 public:
-	GameEngine();
+	GameEngine(bool FULL_SCREEN);
    
 	void initializeGraphics();
 	void close();

@@ -8,17 +8,17 @@ Ship::Ship() {
 }
 
 void Ship::getVertices() {
-    vertices[0] = (GLfloat) centerX+( - 0.2f);
-    vertices[1] = (GLfloat) centerY+( - 0.25f * 1.5 / 3);
+    vertices[0] = (GLfloat) centerX+( - 0.1f);
+    vertices[1] = (GLfloat) centerY+( - 0.0625f);
     
-    vertices[5] = (GLfloat) centerX + (0.2f);
-    vertices[6] = (GLfloat) centerY + (-0.25f * 1.5 / 3);
+    vertices[5] = (GLfloat) centerX + (0.1f);
+    vertices[6] = (GLfloat) centerY + (-0.0625f);
    
     vertices[10] = (GLfloat) centerX+(0.0f);
-    vertices[11] = (GLfloat) centerY+(0.25f * 1.5 * 2 / 3);
+    vertices[11] = (GLfloat) centerY+(0.125f);
     
     vertices[15] = (GLfloat) centerX+(0.0f);
-    vertices[16] = (GLfloat) centerY-(0.03f * 1.5 * 2 / 3);
+    vertices[16] = (GLfloat) centerY-(0.00166f);
    
 }
 

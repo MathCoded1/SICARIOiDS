@@ -19,7 +19,7 @@
 //
 int main()
 {
-	GameEngine game;
+	GameEngine game(false);
 
 	game.initializeGraphics();
 
