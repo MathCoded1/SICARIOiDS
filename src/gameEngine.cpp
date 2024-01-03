@@ -4,7 +4,7 @@
 
 
 
-GameEngine::GameEngine(bool FULL_SCREEN) 
+GameEngine::GameEngine(bool FULL_SCREEN)
 
 {
 	// Initialize GLFW
@@ -20,31 +20,60 @@ GameEngine::GameEngine(bool FULL_SCREEN)
 	// terminal output of if window is created.  if not, terminates and
 	// return -1 and exit if fails (need to fix later so that it throws an error. also handle error)
 	//
-GLFWwindow* w = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME, NULL, NULL);
-	if (w)
-	{
-		std::cout << "Created GLFW window" << std::endl;
+	if( FULL_SCREEN == false){
+		GLFWwindow* w = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME, NULL, NULL);
+		if (w)
+		{
+			std::cout << "Created GLFW window" << std::endl;
+		}
+		else {
+			std::cout << "Failed to create GLFW window" << std::endl;
+			glfwTerminate();
+		}
+		// set <window> to active Window
+		window = w;
+		glfwMakeContextCurrent(window);
+		gladLoadGL(glfwGetProcAddress);
+		//set pixel viewport (0,0),(WINDOW_WIDTH,0),(0,WINDOW_HEIGHT),(WINDOW_WIDTH,WINDOW_HEIGHT)
+		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		Asteroid a(0.75f, 0.75f, 0.1f);
+		asteroids.push_back(a);
+
+
+
+		// Generates Shader object using shaders defualt.vert and default.frag
+		Ship s;
+		ship = s;
 	}
 	else {
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
+		GLFWwindow* w = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME, glfwGetPrimaryMonitor(), NULL);
+		if (w)
+		{
+			std::cout << "Created GLFW window" << std::endl;
+		}
+		else {
+			std::cout << "Failed to create GLFW window" << std::endl;
+			glfwTerminate();
+		}
+		// set <window> to active Window
+		window = w;
+		glfwMakeContextCurrent(window);
+		gladLoadGL(glfwGetProcAddress);
+		//set pixel viewport (0,0),(WINDOW_WIDTH,0),(0,WINDOW_HEIGHT),(WINDOW_WIDTH,WINDOW_HEIGHT)
+		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		Asteroid a(0.75f, 0.75f, 0.1f);
+		asteroids.push_back(a);
+
+
+
+		// Generates Shader object using shaders defualt.vert and default.frag
+		Ship s;
+		ship = s;
 	}
-	// set <window> to active Window
-	window = w;
-	glfwMakeContextCurrent(window);
-	gladLoadGL(glfwGetProcAddress);
-	//set pixel viewport (0,0),(WINDOW_WIDTH,0),(0,WINDOW_HEIGHT),(WINDOW_WIDTH,WINDOW_HEIGHT)
-	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-	Asteroid a(0.75f, 0.75f, 0.1f);
-	asteroids.push_back(a);
-
-
-
-	// Generates Shader object using shaders defualt.vert and default.frag
-	Ship s;
-	ship = s;
 }
+
 void GameEngine::initializeGraphics() {
 
 
@@ -167,13 +196,13 @@ void GameEngine::getInput(GLFWwindow* window)
 }
 void GameEngine::processInput(Input input) {
 	if (input.W == true)
-		ship.centerY += .001f;
+		ship.centerY += .005f;
 	if (input.S == true)
-		ship.centerY -= .001f;
+		ship.centerY -= .005f;
 	if (input.A == true)
-		ship.centerX -= .001f;
+		ship.centerX -= .005f;
 	if (input.D == true)
-		ship.centerX += .001f;
+		ship.centerX += .005f;
 	ship.getVertices();
 
 }
